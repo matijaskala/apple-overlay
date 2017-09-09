@@ -25,4 +25,5 @@ src_install() {
 		ddir=/usr/${CATEGORY#cross-}
 	fi
 	DSTROOT="${ED}"${ddir}/usr/include SRCROOT="$(pwd)" xcodescripts/headers.sh || die
+	mv "${ED}"${ddir}{/usr/include,}/System || die
 }
