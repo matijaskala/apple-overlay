@@ -1,7 +1,7 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 DESCRIPTION="Apple Libc"
 HOMEPAGE="https://opensource.apple.com/"
@@ -24,6 +24,9 @@ src_install() {
 	else
 		ddir=/usr/${CATEGORY#cross-}
 	fi
-	DSTROOT="${ED}"${ddir}/usr/include SRCROOT="$(pwd)" xcodescripts/headers.sh || die
-	mv "${ED}"${ddir}{/usr/include,}/System || die
+	export PUBLIC_HEADERS_FOLDER_PATH=/usr/include
+	export PRIVATE_HEADERS_FOLDER_PATH=/usr/include
+	export DSTROOT="${ED}"${ddir}
+	export SRCROOT="$(pwd)"
+	xcodescripts/headers.sh || die
 }
